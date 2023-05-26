@@ -1,15 +1,11 @@
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class game {
     
     private static int nCountdown = 30;
     private static int roundNum = 1;
     private static int roundSinceEvent = 0;
-    private static int playerCount;
     private static boolean fireEvent = false;
-    private static int lastEvent;
     private static player p1; //Oceania
     private static player p2; //Eurasia
     private static Scanner in = new Scanner (System.in);
@@ -18,7 +14,6 @@ public class game {
     
     public game(player a, player b)
     {
-        playerCount = 2;
         p1 = a;
         p2 = b;
     }
@@ -302,7 +297,7 @@ public class game {
             System.exit(0);
     }
    
-    public static boolean strike(player p1, player p2) //When they hit replaces ship was fire emoji 
+    public static boolean strike(player p1, player p2, String power) //When they hit replaces ship was fire emoji 
     {
         System.out.println(p1.getName() + " is striking " + p2.getName() + "!");
         System.out.println();
@@ -312,6 +307,7 @@ public class game {
 	    statement = sort.checkCoords(statement);
 	    int x = Integer.parseInt(statement.substring(1));
 	    int y = statement.substring(0,1).compareTo("a") + 1;
+        System
 	    
 	    String target = p2.getSBoard().getField()[2*y][x];
 	    
@@ -530,7 +526,21 @@ public class game {
     {   
         p.showSBoard();
         nextScene(2);
-        System.out.println("Place your ship!");
+        System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, type ready. Anything else entered into the prompt will engage the tutorial.");
+        statement = in.nextLine();
+        if(statement.indexOf("ready") >= 0)
+        {
+            System.out.println("(Country) Tutorial");
+            System.out.println("Welcome to Command Headquarters Admiral! Your task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. You must utilise your entire fleet, 3 Frigates “FR”, 2 destroyers “DR”, 1 Cruiser “CR” and 1 aircraft carrier “AR”. The Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length.");
+            System.out.println("Frigate:          ⛵️\n");
+            System.out.println("Destroyer:        🚢🚢🚢\n");
+            System.out.println("Cruiser:          🚀🚀🚀🚀🚀\n");
+            System.out.println("Aircraft carrier: ✈️✈️✈️✈️✈️");
+            System.out.println("                     ✈️✈️✈️\n");
+            System.out.println("You should be particularly mindful of keeping your carrier and battleship afloat as they grant you special abilities that can change the tide of battle. Your Aircraft Carrier allows you to call in a (country specific attack) every 10 turns. (Country specific AR attack). Your Cruiser allows you to fire a missile barrage every 5 turns that hits 3 consecutive tiles. \n");
+            System.out.println("To place a ship, first specify the ship type(FR, DR, CR, or AR), then the Coordinate (Ex, A1), followed by the desired orientation of the ship, vertical or horizontal(V or H). The coordinate entered represents the middle axis of the ship. An order should look like this: “DR B7 V”");
+            System.out.println("Good luck, Admiral! The fate of your nation depends on your strategic decisions and tactical prowess on the battlefield.");
+        }
         System.out.println("This should be formatted as: '[SHIP_TYPE] [COORDINATES] [VERTICAL/HORIZONTAL}'.");
         System.out.println();
         System.out.println("1. Types of Ships organized from largest to smallest:");
@@ -540,9 +550,16 @@ public class game {
         System.out.println("3. Use letter 'V' or 'H' to designate the ship as vertical or horizontal");
         System.out.println("4. Please place 3 Frigates, 2 Destroyers, 1 Cruiser, and 1 Aircraft");
         System.out.println();
+
+        System.out.print("You have " + p.shipsToPlace() +  " yet to be placed. Where would you like to place your first ship admiral? If you are still unsure of how to place a ship, type help.");
+
                 System.out.println("For example: 'FR A3 V' to place a Frigate vertically at A3.");
                 System.out.println("other examples: 'AR B4 V', 'CR D3 H', '");
 	    String statement = in.nextLine();
+        if(statement.indexOf("help") >= 0)
+        {
+           // help
+        }
 	    statement = sort.checkShipArgs(statement);
 	    int x;
 	    if(statement.length() == 8)
@@ -594,7 +611,6 @@ public class game {
 
     public static void intermission()
     {
-        boolean apCSA = false;
         String statement;
         System.out.println("Prepare to give the device to the next player. Press anything to continue.");
         statement = in.nextLine();
@@ -608,8 +624,6 @@ public class game {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String statement = "";
         Boolean monk = false;
         game game1 = new game(new player("Oceania"), new player("Eurasia"));
         //INTRODUCTION PHASE--------------------------------------------------------
@@ -618,14 +632,14 @@ public class game {
         //PLANNING PHASE -------------------------------------------------------------------------------------
         //need to make look like google doc
         for(int i = 0; i <= 6; i++) {
-            if( !(game1.ask(game1.getPlayer1())) )
+            if( !(ask(game1.getPlayer1())) )
                 i--; 
             game1.getPlayer1().showSBoard();
             System.out.println("This is your ship board! Press anything to continue to player 2's ");
         }
         nextScene();
         for(int i = 0; i <= 6; i++) {
-            if( !(game1.ask(game1.getPlayer2())) )
+            if( !(ask(game1.getPlayer2())) )
                 i--; 
             System.out.println("This is your ship board! Press anything to continue to STRIKE phase.");
         }

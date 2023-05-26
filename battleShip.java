@@ -1,6 +1,3 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 class battleShip //Basicially declares all the simple things needed
 {                    
@@ -70,7 +67,6 @@ class cruiser extends battleShip
 
 class airCarrier extends battleShip
 {
-    private int width = 2;
     public airCarrier(int x, int y, boolean vertical) {
         super(x,y,vertical,5,"ar");
     }

@@ -1,11 +1,7 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 class player {
     
-    private Scanner in = new Scanner (System.in);
-    private String statement;
     
     private hitBoard hBoard = new hitBoard();
     private board sBoard = new board();
@@ -115,6 +111,30 @@ class player {
         return false;
     }   
     
+    public String shipsToPlace() {
+        int FRs = 0; int DRs = 0; int CRs = 0; int ARs = 0;
+        for(int i = 0; i <= 2; i++)
+        {
+            if(fleets[i] == null)
+                FRs++;
+        }
+        for(int i = 3; i <= 4; i++)
+        {
+            if(fleets[i] == null)
+                DRs++;
+        }
+        for(int i = 5; i <= 5; i++)
+        {
+            if(fleets[i] == null)
+                CRs++;
+        }
+        for(int i = 6; i <= 6; i++)
+        {
+            if(fleets[i] == null)
+                ARs++;
+        }
+        return FRs + " FRs, " + DRs + " DRs, " + CRs + " CRs, " + ARs + " ARs";
+    }
     public String ratingAssessment(player player) // P1.ratingAssessment(P2)
 {                                           //checks if P1 is the one winning,
                                             //where p1 is current player
