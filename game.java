@@ -6,6 +6,7 @@ public class game {
     private static int roundNum = 1;
     private static int roundSinceEvent = 0;
     private static boolean fireEvent = false;
+    private static boolean greeting = false;
     private static player p1; //Oceania
     private static player p2; //Eurasia
     private static Scanner in = new Scanner (System.in);
@@ -43,14 +44,17 @@ public class game {
     } 
     
     public static void introduction() {
-        System.out.println("Battleship SPS: Setup Place Strike \n Created by: Ethan, Phoenix, and Garrett \n Proud Students of Mrs. Bjorgum's 2023 AP CSA Class \n \n");
-        System.out.println("Mission Statement: \n\n Attention, Admirals! The year is 2084, and the world is teetering on the edge of absolute chaos due to an all-out war between two superpowers - Oceania and Eurasia. \n \n It is up to you and your fleets to resolve this conflict. \n \n Both sides have amassed landing forces poised to unleash a devastating assault on the opposing faction. \n \n Your fleets are the only line of defence standing between victory and total annihilation. \n \n You must sally forth with unwavering determination, nation. For if you do not clear the waves of enemy ships, you run the risk of the war devolving into a ruinous nuclear conflict! \n \n The time for hesitation is over, Admiral! The fate of your nation depends on you. \n \n Are you ready to lead your fleet to victory and save your country from the brink of destruction? \n \n If you understand the your objective, type yes \n \n"); 
-        statement = sort.checkYN(statement);
+        System.out.println("\n \n \n \nBattleship SPS: Setup Place Strike \nCreated by: Ethan, Phoenix, and Garrett \nProud Students of Mrs. Bjorgum's 2023 AP CSA Class \n \n");
+        System.out.println("Mission Statement: \n\n Attention, Admirals! The year is 2084, and the world is teetering on the edge of absolute chaos due to an all-out war between two superpowers - Oceania and Eurasia. \n \n It is up to you and your fleets to resolve this conflict. \n \n Both sides have amassed landing forces poised to unleash a devastating assault on the opposing faction. \n \n Your fleets are the only line of defence standing between victory and total annihilation. \n \n You must sally forth with unwavering determination, nation. For if you do not clear the waves of enemy ships, you run the risk of the war devolving into a ruinous nuclear conflict! \n \n The time for hesitation is over, Admiral! The fate of your nation depends on you. \n \n Are you ready to lead your fleet to victory and save your country from the brink of destruction? \n \n If you understand the your objective, type yes  \n"); 
+        String statement = in.nextLine();
         if(statement.indexOf("no") >= 0)
-            System.out.println("Mission Statement: \n \n shoot gun make ship go BOOM");
-        System.out.print("Please indicate (yes) that only 1 player is able to see the screen so the planning sequence may begin.");
-        statement = sort.checkYN(statement);
-        nextScene();
+            System.out.println("\n shoot gun make ship go BOOM!");
+    }
+    public static void confirmation() {
+        System.out.print("\nPlease indicate (yes) that only 1 player is able to see the screen so the planning sequence may begin.\n");
+        String statement = in.nextLine();
+        if(statement.indexOf("no") >= 0)
+            System.out.println("Please ensure only one player is viewing the sceen");
     }
     
     public static void asciiCountD(int p)
@@ -271,7 +275,7 @@ public class game {
     
     public static void nextScene() //Would be replaced with the wave sequence if time
     {
-        for(int k = 0; k < 60; k++)
+        for(int k = 0; k < 100; k++)
              System.out.println();
     }// System.out.println() alot, so cant see previous stuff ; used to cut to next player turn
     public static void nextScene(int i)
@@ -525,41 +529,60 @@ public class game {
     */
     public static boolean ask(player p) // executes sequence of ship placement, asking player for inputs    // returns true if successfully placed ship, false if not
     {   
-        p.showSBoard();
+        if(roundNum != 1) {
+            p.showSBoard();
+        }
         nextScene(2);
-        System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, type ready. Anything else entered into the prompt will engage the tutorial.");
+        if(greeting == true)
+        {
+        System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, type 'ready'. \n\n \n \n \nAnything else entered into the prompt will engage the tutorial. \n \n \n \n \n \n \n \n \n \n ");
+        nextScene(25);
         statement = in.nextLine();
+        greeting = false;
+        }
+        nextScene();
         if(statement.indexOf("ready") <= 0)
         {
-            System.out.println("(Country) Tutorial");
-            System.out.println("Welcome to Command Headquarters Admiral! Your task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. You must utilise your entire fleet, 3 Frigates 'FR', 2 destroyers 'DR', 1 Cruiser 'CR' and 1 aircraft carrier 'AR'. The Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length. \n");
+            nextScene();
+            System.out.println("\n \n(Country) Tutorial \n");
+            System.out.println("Welcome to Command Headquarters Admiral! \n \n********************************************************************************* \nYour task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. \n \nYou must utilise the entire fleet, 3 Frigates 'FR', 2 destroyers 'DR', 1 Cruiser 'CR' and 1 aircraft carrier 'AR'. \nThe Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length. \n");
             System.out.println("Frigate:          ⛵️\n");
             System.out.println("Destroyer:        🚢🚢🚢\n");
             System.out.println("Cruiser:          🚀🚀🚀🚀🚀\n");
             System.out.println("Aircraft carrier: ✈️✈️✈️✈️✈️");
-            System.out.println("                     ✈️✈️✈️\n");
-            System.out.println("You should be particularly mindful of keeping your carrier and battleship afloat as they grant you special abilities that can change the tide of battle. Your Aircraft Carrier allows you to call in a (country specific attack) every 10 turns. (Country specific AR attack). Your Cruiser allows you to fire a missile barrage every 5 turns that hits 3 consecutive tiles. \n");
-            System.out.println("To place a ship, first specify the ship type(FR, DR, CR, or AR), then the Coordinate (Ex, A1), followed by the desired orientation of the ship, vertical or horizontal(V or H). The coordinate entered represents the middle axis of the ship. An order should look like this: “DR B7 V”");
-            System.out.println("Good luck, Admiral! The fate of your nation depends on your strategic decisions and tactical prowess on the battlefield.");
+            System.out.println("                     ✈️✈️✈️\n \n*********************************************************************************");
+            System.out.println("You should be particularly mindful of keeping your carrier and battleship afloat as they grant you special abilities that can change the tide of battle. \n \nYour Aircraft Carrier allows you to call in a (country specific attack) every 10 turns. \n(Country specific AR attack). \n \nYour Cruiser allows you to fire a missile barrage every 5 turns that hits 3 consecutive tiles. \n \n*********************************************************************************");
+            System.out.println("To place a ship, first specify the ship type(FR, DR, CR, or AR), then the Coordinate (Ex, A1), followed by the desired orientation of the ship, vertical or horizontal(V or H). \nThe coordinate entered represents the middle axis of the ship. \n \nAn order should look like this: 'DR B7 V'\n*********************************************************************************");
+            System.out.println("\n \nGood luck, Admiral! The fate of your nation depends on your strategic decisions and tactical prowess on the battlefield.");
+            nextScene(5);
+            System.out.println("Press enter once you have finished reading the tutorial\n");
+            nextScene(5);
+            statement = in.nextLine();
+        if(statement.indexOf("a") >= 0) {
+            System.out.println("I can't make it any clearer than that.");
         }
-        System.out.println("This should be formatted as: '[SHIP_TYPE] [COORDINATES] [VERTICAL/HORIZONTAL}'.");
-        System.out.println();
-        System.out.println("1. Types of Ships organized from largest to smallest:");
-        System.out.println("    FR for Frigates(1 unit), DR for Destroyers(3 units)");
-        System.out.println("    CR for Cruisers(5 units) and AR for Aircraft Carriers(8)");
-        System.out.println("2. For coordinates, type in a letter then a number: 'A10','J3','G4', etc.");
-        System.out.println("3. Use letter 'V' or 'H' to designate the ship as vertical or horizontal");
-        System.out.println("4. Please place 3 Frigates, 2 Destroyers, 1 Cruiser, and 1 Aircraft");
-        System.out.println();
+        nextScene();
+        }
+        System.out.println("Welcome to the Deployment Screen Admiral!\n \n");
+        System.out.println("Ship placements should be formatted as: '[SHIP_TYPE] [COORDINATES] [VERTICAL/HORIZONTAL}'.");
+        nextScene(2);
+        if(roundNum == 1) {
+            p.showSBoard();
+            nextScene(5);
+        }
 
-        System.out.print("You have " + p.shipsToPlace() +  " yet to be placed. Where would you like to place your first ship admiral? If you are still unsure of how to place a ship, type help.");
-
-                System.out.println("For example: 'FR A3 V' to place a Frigate vertically at A3.");
-                System.out.println("other examples: 'AR B4 V', 'CR D3 H', '");
+        System.out.print("\nYou have " + p.shipsToPlace() +  " yet to be placed. Where would you like to place your ship admiral? If you are still unsure of how to place a ship, type help. \n \n");
+        System.out.print("Placement Coordinates: ");
 	    String statement = in.nextLine();
         if(statement.indexOf("help") >= 0)
         {
-           // help
+            System.out.println("---------------- Help ---------------");
+            System.out.println("Ship Types: ('FR', 'DR', 'CR', 'AR')");
+            System.out.println("Coordinates: (A-J, 1-10) (Ex, B7)");
+            System.out.println("Orientation: (V or H)");
+            System.out.println("Add Spaces After Each Element: 'DR B7 H'\n");
+            System.out.println("You must place 3 Frigates, 2 Destroyers, 1 Cruiser, and 1 Aircraft Carrier.");
+            System.out.println("To view the main tutorial, type 'Tutorial'. Anything else entered will return you to the deployment screen.");
         }
 	    statement = sort.checkShipArgs(statement);
 	    int x;
@@ -629,7 +652,9 @@ public class game {
         game game1 = new game(new player("Oceania"), new player("Eurasia"));
         //INTRODUCTION PHASE--------------------------------------------------------
         introduction();
-        
+        confirmation();
+        nextScene();
+
         //PLANNING PHASE -------------------------------------------------------------------------------------
         //need to make look like google doc
         for(int i = 0; i <= 6; i++) {
@@ -646,7 +671,7 @@ public class game {
         }
         
         nextScene();
-        System.out.println("It is going to be [" + game1.getPlayer1().getName() + "]'s turn");
+        System.out.println("It is going to be " + game1.getPlayer1().getName() + "'s turn. Please ensure the screen is only visible to them");
         nextScene(1);
         statement = in.nextLine();
         
@@ -662,9 +687,9 @@ public class game {
             //Event Sequence (if valid)_________________________________________________
             System.out.println("Day: " + roundNum + "\n");
             System.out.println(RandomEvent());
-            
+            nextScene(5);
             //Intellegence Briefing_______________________________________________________
-            System.out.println("Your Daily Intelligence Briefing brought to you By The Ministry of Intelligence: \n");
+            System.out.println("********************************************************************************* \nYour Daily Intelligence Briefing brought to you By The Ministry of Intelligence: \n");
             
             //Hit or No Hit Feedback
             if(wasHit) {
@@ -677,13 +702,18 @@ public class game {
             pTurnNow.showSBoard();
             
             //Rating Assessment
+            System.out.println("");
+            System.out.println("*********************************************************************************");
             System.out.println(pTurnNow.ratingAssessment(pTurnNot));
+            System.out.println("\n*********************************************************************************");
+            
             
             //Countdown to Armageddon
-            System.out.println("☢ Countdown to Nuclear Armageddon: " + nCountdown + "☢ ");
+            System.out.println("☢ Countdown to Nuclear Armageddon: " + nCountdown + "☢ \n");
             
             //Nuclear Assessment
-            System.out.println(nuclearAssessment());System.out.println();
+            System.out.println(nuclearAssessment());
+            nextScene(2);
             
             System.out.println("Press anything to continue to your [STRIKE] phase");
             statement = in.nextLine();
@@ -763,34 +793,34 @@ public static String nuclearAssessment()
    String[] nAss = new String[10];
    
    //nCountdown > 20
-   nAss[0] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n          The risk of nuclear war at this time is low. Try and keep it this way Admiral."; 
-   nAss[1] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n          The risk of nuclear war at this time is low. May we not antagonise (other country) further.";
-   nAss[2] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n          The risk of nuclear war at this time is low. Pray we keep it this way.";
+   nAss[0] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n          The risk of nuclear war at this time is low. Try and keep it this way Admiral."; 
+   nAss[1] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n          The risk of nuclear war at this time is low. May we not antagonise (other country) further.";
+   nAss[2] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n          The risk of nuclear war at this time is low. Pray we keep it this way.";
    
    //nCountdown > 10
-   nAss[3] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is moderate. Let it rise no more Admiral.";
-   nAss[4] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is moderate. May we not antagonise (other country) further.";
-   nAss[5] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is moderate. Pray it de-escalates from here.";
+   nAss[3] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is moderate. Let it rise no more Admiral.";
+   nAss[4] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is moderate. May we not antagonise (other country) further.";
+   nAss[5] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is moderate. Pray it de-escalates from here.";
    
    //nCountdown > 5
-   nAss[6] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is high. You and you alone can resolve this conflict Admiral.";
-   nAss[7] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is high. May we not antagonise (other country) further.";
-   nAss[8] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n           The risk of nuclear war at this time is high. Pray it rises no further.";
+   nAss[6] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is high. You and you alone can resolve this conflict Admiral.";
+   nAss[7] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is high. May we not antagonise (other country) further.";
+   nAss[8] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           The risk of nuclear war at this time is high. Pray it rises no further.";
    
    //nCountdown < 5
-   nAss[9] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\nNuclear war is imminent.";
+   nAss[9] = "A risk assessment of Nuclear War by the Ministry of Intelligence: \n\n           Nuclear war is imminent.";
    
-    if(nCountdown <= 20)
+    if(nCountdown >= 20)
     {
         int r1 = (int) (Math.random() * 3);
         return nAss[r1];
     }
-    else if(nCountdown <= 25)
+    else if(nCountdown >= 10)
     {
         int r2 = (int) (Math.random() * 3) + 3;
         return nAss[r2];
     }
-    else if(nCountdown <= 30)
+    else if(nCountdown > 5)
     {
         int r3 = (int) (Math.random() * 3) + 6;
         return nAss[r3];
@@ -808,14 +838,14 @@ public static String nuclearAssessment()
 
 public static String RandomEvent()
 {
-    int defaultChance = 100;
+    int defaultChance = 10;
     int daysSinceLastEvent = roundSinceEvent;    // okay the variable is called "roundNum"
                                                  // the methods are "getRoundNum()" to get the 
                                                  // and "nextRound()" to increment it by +1
     int random = (int) (Math.random() * 100) + 1;
     int chance = defaultChance + (15 * daysSinceLastEvent);
     int eventID = 0;
-    System.out.println(random + " " + chance + " " + eventID);
+    //System.out.println(random + " " + chance + " " + eventID); <-- to test event system
     String[] event = new String[28];
   
     event[0] = "Event: Pleasantries Exchanged!   \n\n In a rare moment of passion and grace, the leader of (the opposing nation) has complimented the state of our great nation and the strength of our armed forces. A nuclear crisis may be averted after all…     \n \n Effect: Increases the number of days before armageddon";
