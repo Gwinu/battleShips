@@ -44,7 +44,7 @@ public class game {
     
     public static void introduction() {
         System.out.println("Battleship SPS: Setup Place Strike \n Created by: Ethan, Phoenix, and Garrett \n Proud Students of Mrs. Bjorgum's 2023 AP CSA Class \n \n");
-        System.out.println("Mission Statement: \n\n Attention, Admirals! The year is 2084, and the world is teetering on the edge of absolute chaos \n due to an all-out war between two superpowers - Oceania and Eurasia. It is up to you and your \n fleets to resolve this conflict. Both sides have amassed landing forces poised to unleash a \n devastating assault on the opposing faction. Your fleets are the only line of defence standing \n between victory and total annihilation. You must sally forth with unwavering determination, \n nation. For if you do not clear the waves of enemy ships, you run the risk of the war devolving \n into a ruinous nuclear conflict! The time for hesitation is over, Admiral! The fate of your nation \n depends on you. Are you ready to lead your fleet to victory and save your country from the brink \n of destruction? \n \n If you understand the your objective, type yes \n \n"); 
+        System.out.println("Mission Statement: \n\n Attention, Admirals! The year is 2084, and the world is teetering on the edge of absolute chaos due to an all-out war between two superpowers - Oceania and Eurasia. It is up to you and your fleets to resolve this conflict. Both sides have amassed landing forces poised to unleash a devastating assault on the opposing faction. Your fleets are the only line of defence standing between victory and total annihilation. You must sally forth with unwavering determination, nation. For if you do not clear the waves of enemy ships, you run the risk of the war devolving into a ruinous nuclear conflict! The time for hesitation is over, Admiral! The fate of your nation depends on you. Are you ready to lead your fleet to victory and save your country from the brink of destruction? \n \n If you understand the your objective, type yes \n \n"); 
         statement = sort.checkYN(statement);
         if(statement.indexOf("no") >= 0)
             System.out.println("Mission Statement: \n \n shoot gun make ship go BOOM");
@@ -297,7 +297,7 @@ public class game {
             System.exit(0);
     }
    
-    public static boolean strike(player p1, player p2, String power) //When they hit replaces ship was fire emoji 
+  /*  public static boolean strike(player p1, player p2, String power) //When they hit replaces ship was fire emoji 
     {
         System.out.println(p1.getName() + " is striking " + p2.getName() + "!");
         System.out.println();
@@ -522,16 +522,17 @@ public class game {
             return false;
         }
     }
+    */
     public static boolean ask(player p) // executes sequence of ship placement, asking player for inputs    // returns true if successfully placed ship, false if not
     {   
         p.showSBoard();
         nextScene(2);
         System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, type ready. Anything else entered into the prompt will engage the tutorial.");
         statement = in.nextLine();
-        if(statement.indexOf("ready") >= 0)
+        if(statement.indexOf("ready") <= 0)
         {
             System.out.println("(Country) Tutorial");
-            System.out.println("Welcome to Command Headquarters Admiral! Your task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. You must utilise your entire fleet, 3 Frigates “FR”, 2 destroyers “DR”, 1 Cruiser “CR” and 1 aircraft carrier “AR”. The Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length.");
+            System.out.println("Welcome to Command Headquarters Admiral! Your task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. You must utilise your entire fleet, 3 Frigates 'FR', 2 destroyers 'DR', 1 Cruiser 'CR' and 1 aircraft carrier 'AR'. The Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length. \n");
             System.out.println("Frigate:          ⛵️\n");
             System.out.println("Destroyer:        🚢🚢🚢\n");
             System.out.println("Cruiser:          🚀🚀🚀🚀🚀\n");
@@ -689,12 +690,13 @@ public class game {
             nextScene(1);
             
             //Strike Sequence______________________________________________________________
+            
             pTurnNow.showHBoard();
-            if(strike(pTurnNow, pTurnNot))
-                wasHit = true;
-            nextScene();
-            pTurnNow.showHBoard();
-            System.out.println();
+          //  if(strike(pTurnNow, pTurnNot))
+             //   wasHit = true;
+           // nextScene();
+          //  pTurnNow.showHBoard();
+           // System.out.println();
             if(wasHit)
                 System.out.println("You hit a ship!");
             else
@@ -722,6 +724,7 @@ public class game {
                 nuclearArmageddon();
             }
         }
+        
 // LOSING SCREEN ----------------------------------------------------------------------------------------------------------------------------------------------------
         //I get that this is a placeholder, but the only 3 possible endings are Oceania wins, Eurasia wins, or Nuclear Armaggedon.
         for(int i  = 0; i < 65; i++)
@@ -745,6 +748,7 @@ public class game {
             }   
         }
     }
+    
     //Considerations: Needs to take the value of all unhit parts of each ship (21)
     //                + if cruiser is not destroyed (3) + if AR isn't destroyed (6)
     //      

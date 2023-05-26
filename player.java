@@ -60,7 +60,7 @@ class player {
         System.out.println("   " + getName() + "'s turn   ");
         hBoard.showField();
     }
-
+    
     public battleShip[] getFleet() {
         return fleets;}
     
