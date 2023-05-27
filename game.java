@@ -527,42 +527,56 @@ public class game {
         }
     }
     */
-    public static boolean ask(player p) // executes sequence of ship placement, asking player for inputs    // returns true if successfully placed ship, false if not
-    {   
-        if(roundNum != 1) {
-            p.showSBoard();
-        }
-        nextScene(2);
-        if(greeting == true)
-        {
-        System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, type 'ready'. \n\n \n \n \nAnything else entered into the prompt will engage the tutorial. \n \n \n \n \n \n \n \n \n \n ");
-        nextScene(25);
+    public static void tutorial() {
+        System.out.println("\n \n(Country) Tutorial \n");
+        System.out.println("Welcome to Command Headquarters Admiral! \n \n********************************************************************************* \nYour task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. \n \nYou must utilise the entire fleet, 3 Frigates 'FR', 2 destroyers 'DR', 1 Cruiser 'CR' and 1 aircraft carrier 'AR'. \nThe Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length. \n");
+        System.out.println("Frigate:          ⛵️\n");
+        System.out.println("Destroyer:        🚢🚢🚢\n");
+        System.out.println("Cruiser:          🚀🚀🚀🚀🚀\n");
+        System.out.println("Aircraft carrier: ✈️✈️✈️✈️✈️");
+        System.out.println("                     ✈️✈️✈️\n \n*********************************************************************************");
+        System.out.println("You should be particularly mindful of keeping your carrier and battleship afloat as they grant you special abilities that can change the tide of battle. \n \nYour Aircraft Carrier allows you to call in a (country specific attack) every 10 turns. \n(Country specific AR attack). \n \nYour Cruiser allows you to fire a missile barrage every 5 turns that hits 3 consecutive tiles. \n \n*********************************************************************************");
+        System.out.println("To place a ship, first specify the ship type(FR, DR, CR, or AR), then the Coordinate (Ex, A1), followed by the desired orientation of the ship, vertical or horizontal(V or H). \nThe coordinate entered represents the middle axis of the ship. \n \nAn order should look like this: 'DR B7 V'");
+        System.out.println("\n********************************************************************************* \nGood luck, Admiral! The fate of your nation depends on your strategic decisions and tactical prowess on the battlefield.");
+        nextScene(5);
+        System.out.println("Press enter once you have finished reading the tutorial\n");
+        nextScene(5);
         statement = in.nextLine();
-        greeting = false;
-        }
-        nextScene();
-        if(statement.indexOf("ready") <= 0)
-        {
-            nextScene();
-            System.out.println("\n \n(Country) Tutorial \n");
-            System.out.println("Welcome to Command Headquarters Admiral! \n \n********************************************************************************* \nYour task is to strategically position the fleet in a way that makes it difficult for the enemy to attack it. \n \nYou must utilise the entire fleet, 3 Frigates 'FR', 2 destroyers 'DR', 1 Cruiser 'CR' and 1 aircraft carrier 'AR'. \nThe Frigates are 1 unit, the Destroyers 3 units, the Cruiser 5 units, and the Aircraft Carrier 8 units in length. \n");
-            System.out.println("Frigate:          ⛵️\n");
-            System.out.println("Destroyer:        🚢🚢🚢\n");
-            System.out.println("Cruiser:          🚀🚀🚀🚀🚀\n");
-            System.out.println("Aircraft carrier: ✈️✈️✈️✈️✈️");
-            System.out.println("                     ✈️✈️✈️\n \n*********************************************************************************");
-            System.out.println("You should be particularly mindful of keeping your carrier and battleship afloat as they grant you special abilities that can change the tide of battle. \n \nYour Aircraft Carrier allows you to call in a (country specific attack) every 10 turns. \n(Country specific AR attack). \n \nYour Cruiser allows you to fire a missile barrage every 5 turns that hits 3 consecutive tiles. \n \n*********************************************************************************");
-            System.out.println("To place a ship, first specify the ship type(FR, DR, CR, or AR), then the Coordinate (Ex, A1), followed by the desired orientation of the ship, vertical or horizontal(V or H). \nThe coordinate entered represents the middle axis of the ship. \n \nAn order should look like this: 'DR B7 V'\n*********************************************************************************");
-            System.out.println("\n \nGood luck, Admiral! The fate of your nation depends on your strategic decisions and tactical prowess on the battlefield.");
-            nextScene(5);
-            System.out.println("Press enter once you have finished reading the tutorial\n");
-            nextScene(5);
-            statement = in.nextLine();
         if(statement.indexOf("a") >= 0) {
             System.out.println("I can't make it any clearer than that.");
         }
         nextScene();
+    }
+    public static void help() {
+        System.out.println("---------------- Help ---------------");
+        System.out.println("Ship Types: ('FR', 'DR', 'CR', 'AR')");
+        System.out.println("Coordinates: (A-J, 1-10) (Ex, B7)");
+        System.out.println("Orientation: (V or H)");
+        System.out.println("Add Spaces After Each Element: 'DR B7 H'\n");
+        System.out.println("You must place 3 Frigates, 2 Destroyers, 1 Cruiser, and 1 Aircraft Carrier.");
+        System.out.println("To view the main tutorial, type 'Tutorial'. Anything else entered will return you to the deployment screen.");
+        String statement = in.nextLine();
+        if(statement.indexOf("tutorial") >= 0)
+            {
+                tutorial();
+                deploymentView(p1);
+            }
+    }
+    public static void greetings() { //not functional for the second player. Could fix by making 2 seperate greetings 1 for p1, 1 for p2. We make 2 booleans, greeting 1 and greeting 2. 
+        if(greeting == false)
+        {
+        System.out.println("Greetings Admiral! If you are already familiar with the different types of ships along with their unique abilities, and you know how to place your ships, press enter. \n\n \n \n \nIf you don't already know how to play the game, type 'help' to engage the tutorial. \n \n \n \n \n \n \n \n \n \n ");
+        nextScene(25);
+        statement = in.nextLine();
+        greeting = true;
         }
+        nextScene();
+        if((statement.indexOf("help") >= 0))
+        {
+            tutorial();
+        }
+    }
+    public static void deploymentView(player p) {
         System.out.println("Welcome to the Deployment Screen Admiral!\n \n");
         System.out.println("Ship placements should be formatted as: '[SHIP_TYPE] [COORDINATES] [VERTICAL/HORIZONTAL}'.");
         nextScene(2);
@@ -576,14 +590,16 @@ public class game {
 	    String statement = in.nextLine();
         if(statement.indexOf("help") >= 0)
         {
-            System.out.println("---------------- Help ---------------");
-            System.out.println("Ship Types: ('FR', 'DR', 'CR', 'AR')");
-            System.out.println("Coordinates: (A-J, 1-10) (Ex, B7)");
-            System.out.println("Orientation: (V or H)");
-            System.out.println("Add Spaces After Each Element: 'DR B7 H'\n");
-            System.out.println("You must place 3 Frigates, 2 Destroyers, 1 Cruiser, and 1 Aircraft Carrier.");
-            System.out.println("To view the main tutorial, type 'Tutorial'. Anything else entered will return you to the deployment screen.");
+            help();
         }
+    }
+    //Deployment Screen-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public static boolean ask(player p) // executes sequence of ship placement, asking player for inputs    // returns true if successfully placed ship, false if not
+    {   
+        greetings();
+
+        deploymentView(p);
+
 	    statement = sort.checkShipArgs(statement);
 	    int x;
 	    if(statement.length() == 8)
