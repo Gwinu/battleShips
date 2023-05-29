@@ -733,14 +733,11 @@ public class game {
     public static void intermission()
     {
         String statement;
-        System.out.println("Prepare to give the device to the next player. Press anything to continue.");
+        System.out.println("Admiral, please give the device to the next player. Press anything to continue.");
         statement = in.nextLine();
-        for(int i  = 0; i < 65; i++)
-        {
-            System.out.println();
-        }
+        nextScene(65);
         System.out.println("Switch to next person!");
-         System.out.println("If you did that. Type Yes");
+         System.out.println("To affirm you did so, please type 'yes'");
          sort.checkY(statement);
     }
 
@@ -789,7 +786,10 @@ public class game {
             System.out.println("********************************************************************************* \nYour Daily Intelligence Briefing brought to you By The Ministry of Intelligence: \n");
             
             //Hit or No Hit Feedback
-            if(wasHit) {
+           // if(roundNum == 1 && p2.getName().indexOf("Oceania") < 0) {  <--Supposed to trigger if and only if it is Oceania (p1's turn) on the very first round. 
+           //     System.out.println("Admiral, it is your duty to ignite this war. Fire the first shot and aim true. If neither side is able to destroy the opposing fleet in a timely manner, they risk all out nuclear war!");
+           // }
+            if(wasHit) { //will become an else if
                 System.out.println("You were hit! \n"); }
             else {
                 System.out.println("The foolish and incompetent " + pTurnNot.getName() + "ians fired harmlessly into the ocean. \n"); }
@@ -844,7 +844,7 @@ public class game {
             pTurnNow = pTurnNot;
             pTurnNot = temp;
             
-            if(nCountdown == 0)               // Could we print ascii art numbers? https://gist.github.com/yuanqing/ffa2244bd134f911d365
+            if(nCountdown == 0)             
             {
                 System.out.println("❗❗❗❗You have run out of turns. Nuclear Armageddon commencing❗❗❗❗");
                 asciiCountD(10);
