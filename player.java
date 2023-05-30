@@ -135,6 +135,15 @@ class player {
         }
         return FRs + " FRs, " + DRs + " DRs, " + CRs + " CRs, " + ARs + " ARs";
     }
+    public int numShipsToPlace() {
+        int shipsToPlace = 0;
+        for(battleShip ship : fleets)
+        {
+            if(ship == null)
+                shipsToPlace++;
+        }
+        return shipsToPlace;
+    }
     public String ratingAssessment(player player) // P1.ratingAssessment(P2)
 {                                           //checks if P1 is the one winning,
                                             //where p1 is current player
@@ -143,37 +152,37 @@ class player {
     boolean winning = winning(player);   //checks if P1 is winning
     if(oRating == eRating)
     {
-        return "The ministry of intelligence projects that the balance of power is even";
+        return "        The ministry of intelligence projects that the balance of power is even";
     }
     
     else if(Math.abs(oRating - eRating) <= 5 && winning) 
     {
-        return "The ministry of intelligence projects a slight advantage for our naval forces in the ongoing conflict, with successful maneuvers executed by our fleet against the enemy vessels.";
+        return "        The ministry of intelligence projects a slight advantage for our naval forces in the ongoing conflict, with successful maneuvers executed by our fleet against the enemy vessels.";
     }
     
     else if(Math.abs(oRating - eRating) <= 5 && !winning) 
     {
-        return "The ministry of intelligence projects a non-advantageous situation for our navy. We have sustained greater losses than our enemy. Proceed with caution.";
+        return "        The ministry of intelligence projects a non-advantageous situation for our navy. We have sustained greater losses than our enemy. Proceed with caution.";
     }
     
     else if(Math.abs(oRating - eRating) <= 10 && winning)
     {
-        return "The ministry of intelligence projects a significant lead for our navy in the ongoing naval war, as our ships continue to dominate and outmaneuver the enemy's fleets.";
+        return "        The ministry of intelligence projects a significant lead for our navy in the ongoing naval war, as our ships continue to dominate and outmaneuver the enemy's fleets.";
     }
     
     else if(Math.abs(oRating - eRating) <= 10 && !winning) 
     {
-        return "The ministry of intelligence projects a perilous situation for our navy, as the enemy's superior tactics and weaponry have resulted in substantial losses and damage to our ships.";
+        return "        The ministry of intelligence projects a perilous situation for our navy, as the enemy's superior tactics and weaponry have resulted in substantial losses and damage to our ships.";
     }
     
     else if(Math.abs(oRating - eRating) <= 15 && winning) 
     {
-        return "The ministry of intelligence projects that our naval forces are currently overpowering the enemy, executing successful blockades and naval assaults that are leaving the enemy forces reeling. We are on the verge of victory.";
+        return "        The ministry of intelligence projects that our naval forces are currently overpowering the enemy, executing successful blockades and naval assaults that are leaving the enemy forces reeling. We are on the verge of victory.";
     }
     
     else if(Math.abs(oRating - eRating) <= 15 && !winning) 
     {
-        return "The ministry of intelligence projects an imminent and catastrophic defeat for our navy, as the enemy's forces close in on our last remaining vessels, leaving us with little hope of mounting a successful defense.";
+        return "        The ministry of intelligence projects an imminent and catastrophic defeat for our navy, as the enemy's forces close in on our last remaining vessels, leaving us with little hope of mounting a successful defense.";
     }
     return " ";
     
